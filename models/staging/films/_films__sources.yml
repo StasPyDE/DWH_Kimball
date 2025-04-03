@@ -1,0 +1,18 @@
+sources:
+  - name: film_src
+    description: Информация о бизнес-процессах магазина по прокату DVD
+    database: DWHKimball
+    schema: film_src
+    tables:
+      - name: film
+        description: Информация о фильмах
+
+      - name: inventory
+        description: Информация об инвентаре
+
+      - name: rental
+        description: Информация о прокате
+
+      - name: payment
+        description: Информация о платежах клиентов
+      
