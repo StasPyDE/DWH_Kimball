@@ -6,13 +6,133 @@ sources:
     tables:
       - name: film
         description: Информация о фильмах
+        columns:
+          - name: film_id
+            data_type: int4
+            description: "Уникальный идентификатор фильма"
 
+          - name: title
+            data_type: varchar(255)
+            description: "Название фильма"
+
+          - name: description
+            data_type: text
+            description: "Описание фильма"
+
+          - name: release_year
+            data_type: int2
+            description: "Год выпуска фильма"
+
+          - name: language_id
+            data_type: int2
+            description: "Идентификатор языка фильма"
+
+          - name: rental_duration
+            data_type: int2
+            description: "Продолжительность периода аренды фильм"
+
+          - name: rental_rate
+            data_type: numeric(4, 2)
+            description: "Неизвестно"
+
+          - name: length
+            data_type: text
+            description: "Длительность фильма"
+
+          - name: replacement_cost
+            data_type: numeric(5, 2)
+            description: "Стоимость замены фильма при утере"
+
+          - name: rating
+            data_type: varchar(10)
+            description: "Рейтинг фильма"
+
+          - name: last_update
+            data_type: timestamp
+            description: "Дата и время последнего обновления записи о фильме"
+
+          - name: special_features
+            data_type: _text
+            description: "Массив текстовых значений с особыми характеристиками фильма"
+
+          - name: fulltext
+            data_type: text
+            description: "Неизвестно"
+      
       - name: inventory
-        description: Информация об инвентаре
+        description: Информация о дисках
+        columns:
+          - name: inventory_id
+            data_type: int4
+            description: "Уникальный идентификатор записи диска"
+
+          - name: film_id
+            data_type: int2
+            description: "Идентификатор фильма, связанный с таблицей film. Указывает, какая копия фильма хранится на этом диске"
+
+          - name: store_id
+            data_type: int2
+            description: "Идентификатор магазина, в котором находится данный диск"
+
+          - name: last_update
+            data_type: timestamp
+            description: "Дата и время последнего обновления диска"
 
       - name: rental
         description: Информация о прокате
+        columns:
+          - name: rental_id
+            data_type: int4
+            description: "Уникальный идентификатор записи о прокате"
+
+          - name: rental_date
+            data_type: timestamp
+            description: "Дата и время выдачи фильма в аренду"
+
+          - name: inventory_id
+            data_type: int4
+            description: "Идентификатор диска, взятого в прокат"
+
+          - name: customer_id
+            data_type: int2
+            description: "Идентификатор клиента, взявшего фильм в аренду"
+
+          - name: return_date
+            data_type: timestamp
+            description: "Дата и время фактического возврата фильма"
+
+          - name: staff_id
+            data_type: int2
+            description: "Идентификатор сотрудника, оформившего прокат"
+
+          - name: last_update
+            data_type: timestamp
+            description: "Дата и время последнего обновления записи"
 
       - name: payment
         description: Информация о платежах клиентов
+        columns:
+          - name: payment_id
+            data_type: int4
+            description: "Уникальный идентификатор платежа"
+
+          - name: customer_id
+            data_type: int2
+            description: "Идентификатор клиента, совершившего платеж"
+
+          - name: staff_id
+            data_type: int2
+            description: "Идентификатор сотрудника, принявшего платеж"
+
+          - name: rental_id
+            data_type: int4
+            description: "Идентификатор проката, к которой относится платеж"
+
+          - name: amount
+            data_type: numeric(5, 2)
+            description: "Сумма платежа"
+
+          - name: payment_date
+            data_type: timestamp
+            description: "Дата и время проведения платежа"
       
