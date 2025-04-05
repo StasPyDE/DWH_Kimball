@@ -18,4 +18,6 @@ models:
   dwh_kimball:
     staging:
       +schema: staging
+    core:
+      +schema: core
 

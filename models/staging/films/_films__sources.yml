@@ -136,3 +136,66 @@ sources:
             data_type: timestamp
             description: "Дата и время проведения платежа"
       
+      - name: staff
+        description: Информация о персонале
+        columns:
+          - name: staff_id
+            data_type: int4
+            description: Уникальный идентификатор сотрудника
+
+          - name: first_name
+            data_type: varchar(45)
+            description: Имя сотрудника
+
+          - name: last_name
+            data_type: varchar(45)
+            description: Фамилия сотрудника
+
+          - name: store_id
+            data_type: int2
+            description: Идентификатор магазина, к которому прикреплен сотрудник
+
+      - name: address
+        description: Таблица содержит адресную информацию
+        columns:
+          - name: address_id
+            data_type: int4
+            description: Уникальный идентификатор адреса
+
+          - name: address
+            data_type: varchar(50)
+            description: Основная строка адреса
+
+          - name: district
+            data_type: varchar(20)
+            description: Район
+
+          - name: city_id
+            data_type: int2
+            description: Идентификатор города
+
+      - name: city
+        description: Таблица содержит информацию о городах
+        columns:
+          - name: city_id
+            data_type: int4
+            description: Уникальный идентификатор города
+
+          - name: city
+            data_type: varchar(50)
+            description: Название города
+
+      - name: store
+        description: Таблица содержит информацию о магазинах
+        columns:
+          - name: store_id
+            data_type: int4
+            description: Уникальный идентификатор магазина
+
+          - name: address_id
+            data_type: int2
+            description: Уникальный идентификатор адреса
+          
+
+          
+      

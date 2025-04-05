@@ -1,0 +1,13 @@
+models:
+  - name: core_dim_inventory
+    description: Таблица измерений инвентаря
+  
+  - name: core_dim_staff
+    description: Таблица измерений персонала
+
+
+  - name: core_fct_payment
+    description: Таблица фактов измерений
+    
+  - name: core_fct_rental
+    description: Таблица фактов аренды
