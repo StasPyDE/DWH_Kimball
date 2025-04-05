@@ -6,14 +6,20 @@ sources:
     tables:
       - name: film
         description: Информация о фильмах
+        config:
+          contract: {enforced: true}
         columns:
           - name: film_id
             data_type: int4
             description: "Уникальный идентификатор фильма"
+            constraints:
+              - type: not_null
 
           - name: title
             data_type: varchar(255)
             description: "Название фильма"
+            constraints:
+              - type: not_null
 
           - name: description
             data_type: text
@@ -26,22 +32,30 @@ sources:
           - name: language_id
             data_type: int2
             description: "Идентификатор языка фильма"
+            constraints:
+              - type: not_null
 
           - name: rental_duration
             data_type: int2
-            description: "Продолжительность периода аренды фильм"
+            description: "Продолжительность периода аренды фильма"
+            constraints:
+              - type: not_null
 
           - name: rental_rate
             data_type: numeric(4, 2)
-            description: "Неизвестно"
+            description: "Стоимость аренды"
+            constraints:
+              - type: not_null
 
           - name: length
-            data_type: text
+            data_type: int2
             description: "Длительность фильма"
 
           - name: replacement_cost
             data_type: numeric(5, 2)
             description: "Стоимость замены фильма при утере"
+            constraints:
+              - type: not_null
 
           - name: rating
             data_type: varchar(10)
@@ -50,6 +64,8 @@ sources:
           - name: last_update
             data_type: timestamp
             description: "Дата и время последнего обновления записи о фильме"
+            constraints:
+              - type: not_null
 
           - name: special_features
             data_type: _text
@@ -57,144 +73,204 @@ sources:
 
           - name: fulltext
             data_type: text
-            description: "Неизвестно"
+            description: "Полнотекстовый индекс для поиска по фильмам"
+            constraints:
+              - type: not_null
       
       - name: inventory
         description: Информация о дисках
+        config:
+          contract: {enforced: true}
         columns:
           - name: inventory_id
             data_type: int4
             description: "Уникальный идентификатор записи диска"
+            constraints:
+              - type: not_null
 
           - name: film_id
-            data_type: int2
+            data_type: int4
             description: "Идентификатор фильма, связанный с таблицей film. Указывает, какая копия фильма хранится на этом диске"
+            constraints:
+              - type: not_null
 
           - name: store_id
-            data_type: int2
+            data_type: int4
             description: "Идентификатор магазина, в котором находится данный диск"
-
-          - name: last_update
-            data_type: timestamp
-            description: "Дата и время последнего обновления диска"
+            constraints:
+              - type: not_null
 
       - name: rental
         description: Информация о прокате
+        config:
+          contract: {enforced: true}
         columns:
           - name: rental_id
             data_type: int4
             description: "Уникальный идентификатор записи о прокате"
+            constraints:
+              - type: not_null
 
           - name: rental_date
             data_type: timestamp
             description: "Дата и время выдачи фильма в аренду"
+            constraints:
+              - type: not_null
 
           - name: inventory_id
             data_type: int4
             description: "Идентификатор диска, взятого в прокат"
+            constraints:
+              - type: not_null
 
           - name: customer_id
             data_type: int2
             description: "Идентификатор клиента, взявшего фильм в аренду"
+            constraints:
+              - type: not_null
 
           - name: return_date
             data_type: timestamp
             description: "Дата и время фактического возврата фильма"
 
           - name: staff_id
-            data_type: int2
+            data_type: int4
             description: "Идентификатор сотрудника, оформившего прокат"
-
-          - name: last_update
-            data_type: timestamp
-            description: "Дата и время последнего обновления записи"
+            constraints:
+              - type: not_null
 
       - name: payment
         description: Информация о платежах клиентов
+        config:
+          contract: {enforced: true}
         columns:
           - name: payment_id
             data_type: int4
             description: "Уникальный идентификатор платежа"
+            constraints:
+              - type: not_null
 
           - name: customer_id
             data_type: int2
             description: "Идентификатор клиента, совершившего платеж"
+            constraints:
+              - type: not_null
 
           - name: staff_id
-            data_type: int2
+            data_type: int4
             description: "Идентификатор сотрудника, принявшего платеж"
+            constraints:
+              - type: not_null
 
           - name: rental_id
             data_type: int4
             description: "Идентификатор проката, к которой относится платеж"
+            constraints:
+              - type: not_null
 
           - name: amount
             data_type: numeric(5, 2)
             description: "Сумма платежа"
+            constraints:
+              - type: not_null
 
           - name: payment_date
             data_type: timestamp
             description: "Дата и время проведения платежа"
+            constraints:
+              - type: not_null
       
       - name: staff
         description: Информация о персонале
+        config:
+          contract: {enforced: true}
         columns:
           - name: staff_id
             data_type: int4
             description: Уникальный идентификатор сотрудника
+            constraints:
+              - type: not_null
 
           - name: first_name
             data_type: varchar(45)
             description: Имя сотрудника
+            constraints:
+              - type: not_null
 
           - name: last_name
             data_type: varchar(45)
             description: Фамилия сотрудника
+            constraints:
+              - type: not_null
 
           - name: store_id
-            data_type: int2
+            data_type: int4
             description: Идентификатор магазина, к которому прикреплен сотрудник
+            constraints:
+              - type: not_null
 
       - name: address
         description: Таблица содержит адресную информацию
+        config:
+          contract: {enforced: true}
         columns:
           - name: address_id
             data_type: int4
             description: Уникальный идентификатор адреса
+            constraints:
+              - type: not_null
 
           - name: address
             data_type: varchar(50)
             description: Основная строка адреса
+            constraints:
+              - type: not_null
 
           - name: district
             data_type: varchar(20)
             description: Район
+            constraints:
+              - type: not_null
 
           - name: city_id
-            data_type: int2
+            data_type: int4
             description: Идентификатор города
+            constraints:
+              - type: not_null
 
       - name: city
         description: Таблица содержит информацию о городах
+        config:
+          contract: {enforced: true}
         columns:
           - name: city_id
             data_type: int4
             description: Уникальный идентификатор города
+            constraints:
+              - type: not_null
 
           - name: city
             data_type: varchar(50)
             description: Название города
+            constraints:
+              - type: not_null
 
       - name: store
         description: Таблица содержит информацию о магазинах
+        config:
+          contract: {enforced: true}
         columns:
           - name: store_id
             data_type: int4
             description: Уникальный идентификатор магазина
+            constraints:
+              - type: not_null
 
           - name: address_id
-            data_type: int2
+            data_type: int4
             description: Уникальный идентификатор адреса
+            constraints:
+              - type: not_null
           
 
           

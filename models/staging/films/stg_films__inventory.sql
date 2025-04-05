@@ -7,7 +7,6 @@
 select
     inventory_id,
     film_id,
-    store_id,
-    last_update
+    store_id
 from
     {{ source('film_src', 'inventory') }}

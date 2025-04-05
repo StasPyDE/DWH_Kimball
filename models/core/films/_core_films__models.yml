@@ -1,13 +1,212 @@
 models:
   - name: core_dim_inventory
-    description: Таблица измерений инвентаря
-  
-  - name: core_dim_staff
-    description: Таблица измерений персонала
+    description: "Таблица измерения инвентаря"
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: inventory_pk
+        data_type: text
+        description: "Суррогатный ключ"
+        constraints:
+          - type: primary_key
 
+      - name: inventory_id
+        data_type: int4
+        description: "Уникальный идентификатор диска с фильмом"
+        constraints:
+          - type: not_null
+
+      - name: film_id
+        data_type: int4
+        description: "Идентификатор фильма, который записан на диск"
+        constraints:
+          - type: not_null
+
+      - name: title
+        data_type: character varying
+        description: "Название фильма, который записан на диск"
+        constraints:
+          - type: not_null
+
+      - name: rental_duration
+        data_type: smallint
+        description: "Срок сдачи в аренду"
+        constraints:
+          - type: not_null
+
+      - name: rental_rate
+        data_type: numeric(4, 2)
+        description: "Стоимость аренды"
+        constraints:
+          - type: not_null
+
+      - name: length
+        data_type: smallint
+        description: "Длительность фильма"
+
+      - name: rating
+        data_type: character varying
+        description: "Рейтинг фильма"
+
+  - name: core_dim_staff
+    description: "Таблица измерения сотрудников"
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: staff_pk
+        data_type: text
+        description: "Суррогатный ключ"
+        constraints:
+          - type: primary_key
+
+      - name: staff_id
+        data_type: integer
+        description: "Уникальный идентификатор сотрудника"
+        constraints:
+          - type: not_null
+
+      - name: first_name
+        data_type: character varying
+        description: "Имя сотрудника"
+        constraints:
+          - type: not_null
+
+      - name: last_name
+        data_type: character varying
+        description: "Фамилия сотрудника"
+        constraints:
+          - type: not_null
+
+      - name: address
+        data_type: character varying
+        description: "Адрес магазина, в котором работает сотрудник"
+        constraints:
+          - type: not_null
+
+      - name: district
+        data_type: character varying
+        description: "Район"
+        constraints:
+          - type: not_null
+
+      - name: city
+        data_type: character varying
+        description: "Город"
+        constraints:
+          - type: not_null
 
   - name: core_fct_payment
-    description: Таблица фактов измерений
-    
+    description: "Таблица фактов платежей"
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: payment_pk
+        data_type: text
+        description: "Суррогатный ключ"
+        constraints:
+          - type: primary_key
+
+      - name: payment_id
+        data_type: integer
+        description: "Уникальный идентификатор платежа"
+        constraints:
+          - type: not_null
+
+      - name: amount
+        data_type: numeric(7, 2)
+        description: "Сумма денег с аренды"
+        constraints:
+          - type: not_null
+
+      - name: cnt
+        data_type: bigint
+        description: "Количество раз в аренде"
+        constraints:
+          - type: not_null
+
+      - name: payment_date
+        data_type: date
+        description: "Дата платежа"
+        constraints:
+          - type: not_null
+
+      - name: inventory_fk
+        data_type: text
+        description: "Foreign Key для связи с таблицей измерения инвентаря"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_inventory')
+              field: inventory_pk
+
+      - name: staff_fk
+        data_type: text
+        description: "Foreign Key для связи с таблицей измерения сотрудников"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_staff')
+              field: staff_pk
+
   - name: core_fct_rental
-    description: Таблица фактов аренды
+    description: "Таблица фактов сдачи в аренду"
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: rental_pk
+        data_type: text
+        description: "Суррогатный ключ"
+        constraints:
+          - type: primary_key
+
+      - name: rental_id
+        data_type: integer
+        description: "Уникальный идентификатор взятия в аренду"
+        constraints:
+          - type: not_null
+
+      - name: inventory_fk
+        data_type: text
+        description: "Foreign Key для связи с таблицей измерения инвентаря"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_inventory')
+              field: inventory_pk
+
+      - name: staff_fk
+        data_type: text
+        description: "Foreign Key для связи с таблицей измерения сотрудников"
+        constraints:
+          - type: not_null
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_staff')
+              field: staff_pk
+
+      - name: rental_date
+        data_type: date
+        description: "Дата аренды"
+        constraints:
+          - type: not_null
+
+      - name: return_date
+        data_type: date
+        description: "Фактическая дата возврата"
+
+      - name: cnt
+        data_type: bigint
+        description: "Общее количество взятия в аренду"
+        constraints:
+          - type: not_null
+
+      - name: amount
+        data_type: numeric(7, 2)
+        description: "Общая сумма"

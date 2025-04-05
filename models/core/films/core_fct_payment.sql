@@ -10,7 +10,8 @@ with grouped_payments as (
       count(*) as cnt,
       p.payment_date::date as payment_date,
       di.inventory_pk as inventory_fk,
-      ds.staff_pk as staff_fk
+      ds.staff_pk as staff_fk,
+      p.payment_id
   from
     {{ ref('stg_films__payment') }} p 
     join {{ ref('stg_films__rental') }} r using(rental_id) 
@@ -19,11 +20,13 @@ with grouped_payments as (
   group by
       p.payment_date::date,
       di.inventory_pk,
-      ds.staff_pk
+      ds.staff_pk,
+      p.payment_id
 )
 
 select
     {{ dbt_utils.generate_surrogate_key(['payment_date', 'inventory_fk', 'staff_fk']) }} as payment_pk,
+    payment_id,
     amount,
     cnt,
     payment_date,
