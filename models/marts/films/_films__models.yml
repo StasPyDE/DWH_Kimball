@@ -1,0 +1,17 @@
+models:
+  - name: sales_date
+    description: "Отчет, который вычисляет сумму заработанных денег с платежей по датам"
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: date_title
+        data_type: text
+        description: "Дата в красивом формате"
+
+      - name: amount
+        data_type: numeric
+        description: "Сумма денег с платежей по датам"
+
+      - name: date_sort
+        data_type: int4
+        description: "Дата в формате int для сортировки"

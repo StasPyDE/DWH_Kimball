@@ -124,11 +124,16 @@ models:
         constraints:
           - type: not_null
 
-      - name: payment_date
-        data_type: date
+      - name: payment_date_fk
+        data_type: integer
         description: "Дата платежа"
         constraints:
           - type: not_null
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_date')
+              field: date_dim_pk
 
       - name: inventory_fk
         data_type: text
@@ -191,15 +196,26 @@ models:
               to: ref('core_dim_staff')
               field: staff_pk
 
-      - name: rental_date
-        data_type: date
+      - name: rental_date_fk
+        data_type: integer
         description: "Дата аренды"
         constraints:
           - type: not_null
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_date')
+              field: date_dim_pk
 
-      - name: return_date
-        data_type: date
+      - name: return_date_fk
+        data_type: integer
         description: "Фактическая дата возврата"
+        constraints:
+          - type: foreign_key
+        tests:
+          - relationships:
+              to: ref('core_dim_date')
+              field: date_dim_pk
 
       - name: cnt
         data_type: bigint
@@ -210,3 +226,6 @@ models:
       - name: amount
         data_type: numeric(7, 2)
         description: "Общая сумма"
+
+  - name: core_dim_date.sql
+    description: "Таблица измерения дат"

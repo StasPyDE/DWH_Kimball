@@ -20,4 +20,6 @@ models:
       +schema: staging
     core:
       +schema: core
+    marts:
+      +schema: marts
 
