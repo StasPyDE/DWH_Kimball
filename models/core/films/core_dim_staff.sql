@@ -6,12 +6,12 @@
 
 select
     {{ dbt_utils.generate_surrogate_key(['staff_id']) }} as staff_pk,
-    stf.staff_id,
-    stf.first_name,
-    stf.last_name,
-    a.address,
-    a.district,
-    c.city
+    stf.staff_id as staff_id,
+    stf.first_name as first_name,
+    stf.last_name as last_name,
+    a.address as address,
+    a.district as district,
+    c.city as city
 from
     {{ ref('stg_films__staff') }} stf join
     {{ ref('stg_films__store') }} str on stf.store_id = str.store_id join
