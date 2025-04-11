@@ -10,7 +10,7 @@ sources:
           contract: {enforced: true}
         columns:
           - name: film_id
-            data_type: int4
+            data_type: int2
             description: "Уникальный идентификатор фильма"
             constraints:
               - type: not_null
@@ -89,7 +89,7 @@ sources:
               - type: not_null
 
           - name: film_id
-            data_type: int4
+            data_type: int2
             description: "Идентификатор фильма, связанный с таблицей film. Указывает, какая копия фильма хранится на этом диске"
             constraints:
               - type: not_null
