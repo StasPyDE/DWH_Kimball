@@ -51,6 +51,14 @@ models:
       - name: last_update
         data_type: timestamp
         description: "Последний раз, когда обновлялась строка"
+      
+      - name: valid_from
+        data_type: timestamp
+        description: "Актуальна с какого момента"
+
+      - name: valid_to
+        data_type: timestamp
+        description: "Актуальна до какого момента"
 
   - name: core_dim_staff
     description: "Таблица измерения сотрудников"
